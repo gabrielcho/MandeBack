@@ -1,0 +1,26 @@
+{
+  "name": "mandeback",
+  "version": "1.0.0",
+  "description": "Backend repository used for the Mande App development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielcho/MandeBack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielcho/MandeBack/issues"
+  },
+  "homepage": "https://github.com/gabrielcho/MandeBack#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
