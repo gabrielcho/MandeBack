@@ -7,10 +7,11 @@ services:
       - "3000:3000"
     volumes:
       - ".:/app/mande"
+      - "/app/mande/node_modules"
+
     depends_on:
       - postgres
-    command:
-      - sh -c 'npm start'
+
 
   postgres:
     image: postgres:latest
