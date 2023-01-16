@@ -4,3 +4,7 @@ const app = express();
 
 
 app.use('/v1', routes);
+
+app.listen(3000, () => {
+    console.log('LISTENING')
+})
