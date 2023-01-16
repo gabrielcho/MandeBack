@@ -1,0 +1,1 @@
+module.exports.workerValidation = require('./worker.validation')

@@ -15,6 +15,8 @@ services:
 
   postgres:
     image: postgres:latest
+    volumes:
+      - ./dbschema:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
