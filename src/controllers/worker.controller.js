@@ -2,8 +2,8 @@ const {workerService} = require('../services')
 
 
 
-exports.postListing = (req, res) => {
-    console.log(req.body)
-    res.send(req.body)
+exports.createListing = async (req, res) => {
+    const listing = await workerService.createListing(req.body)
+    res.send(listing)
 }
 

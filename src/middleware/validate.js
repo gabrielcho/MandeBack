@@ -7,7 +7,11 @@ const validate = (schema) => (req, res, next) => {
         .prefs({errors: {label: 'key'}, abortEarly: false})
         .validate(object);
     Object.assign(req, value);
-    return next;
+    if (error) {
+        next(error)
+    }
+    Object.assign(req, value)
+    return next();
 }
 
 module.exports = validate;
