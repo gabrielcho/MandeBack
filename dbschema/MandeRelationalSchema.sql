@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS service_listing
     unit_service_listing VARCHAR(255),
     title_service_listing VARCHAR(255),
     description_service_listing VARCHAR(255),
+    UNIQUE (worker_id_worker, service_id_service),
     PRIMARY KEY(id_service_listing)
 );
 
@@ -69,25 +70,14 @@ ALTER TABLE contract
     REFERENCES client(id_client)
     MATCH SIMPLE
 ;
-    
-ALTER TABLE contract
-    ADD    FOREIGN KEY (service_listing_id_service_listing)
-    REFERENCES service_listing(id_service_listing)
-    MATCH SIMPLE
-;
+
     
 ALTER TABLE service_listing
     ADD    FOREIGN KEY (worker_id_worker)
     REFERENCES worker(id_worker)
     MATCH SIMPLE
 ;
-    
-ALTER TABLE service_listing
-    ADD    FOREIGN KEY (worker_id_worker)
-    REFERENCES worker(id_worker)
-    MATCH SIMPLE
-;
-    
+
 ALTER TABLE service_listing
     ADD    FOREIGN KEY (service_id_service)
     REFERENCES service(id_service)
@@ -101,5 +91,6 @@ ALTER TABLE contract
 ;
     
 
--- Create Indexes
+-- Populate services table
 
+INSERT INTO service (name_service, description_service) VALUES ('Limpieza', 'Servicio de limpieza donde se limpian casas, carros, etc'), ('Jardinería', 'Servicio donde se hacen trabajos de jardín');

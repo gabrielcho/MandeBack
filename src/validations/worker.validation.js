@@ -1,5 +1,17 @@
 const Joi = require('joi');
 
+const createWorker = {
+    body: Joi.object().keys({
+        email: Joi.string().email().required(),
+        names: Joi.string().min(1).max(20).required(),
+        lastNames: Joi.string().min(1).max(20).required(),
+        address: Joi.string().min(1).max(20).required(),
+        phone: Joi.string().length(10).required(),
+        password: Joi.string().required(),
+        cc: Joi.string().required()
+    })
+}
+
 const createListing = {
     body: Joi.object().keys({
         serviceId: Joi.number().integer().required(),
@@ -10,6 +22,9 @@ const createListing = {
     },)
 }
 
+
+
 module.exports = {
-    createListing
+    createListing,
+    createWorker,
 }
