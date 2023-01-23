@@ -13,6 +13,7 @@ const createWorker = async (data) => {
     return worker
 }
 
+
 const createListing = async (listingBody, userId) => {
     //checks if there is not an existing listing for that user and service
     const {serviceId, unit, price, title, description} = listingBody;
