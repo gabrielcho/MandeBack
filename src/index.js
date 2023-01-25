@@ -37,17 +37,20 @@ app.use(passport.session());
 
 //Todo: Serialize
 passport.serializeUser(function (user, done) {
+    console.log('serialize', user)
     done(null, user);
 });
 
 //ToDo: Deserialize     
 passport.deserializeUser(async function (user, done) {
-    const {id_worker, id_client} = user;
-    const table = id_worker ? 'worker' : id_client ? 'client' : null;
-    const id = id_worker ? 'id_worker' : id_client ? 'id_client' : null;
 
+    const {id_worker, id_client} = user;
+    const table = id_worker ? 'worker' : id_client ? 'client' :  null;
+    const id = id_worker ? 'id_worker' : id_client ? 'id_client' : null;
+    console.log('Deserialize', user)
     try{
         const result = await db.oneOrNone(`SELECT * FROM ${table} WHERE ${id} = $1`, [id_worker || id_client]);
+        console.log(result, 'deserialize yeahh')
         done(null, result)
     }
     catch (error){
@@ -101,7 +104,7 @@ passport.use('local-login-worker', new LocalStrategy({
                     return done(null, false, { message: 'Wrong password' })
 
                 }
-                return done(null, user, {message: 'Successfully logged in'})
+                return done(null, user)
             })
             .catch(error => { return done(error) })
 
@@ -133,7 +136,7 @@ passport.use('local-register-client', new LocalStrategy({
         }
 
         else {
-            return done(null, false, { message: 'User already exists.' })
+            return done(null, false, { message: 'User already exists or unique fields already exist in other user information' })
         }
     }
 
@@ -146,6 +149,7 @@ passport.use('local-login-client',
       function (email, password, done) {
             db.oneOrNone(`SELECT * FROM client WHERE email_client = $1`, [email])
             .then(user => {
+                console.log('resultdbBBBB',user)
                 if (!user) {
                     return done(null, false, { message: 'Incorrect e-mail' })
                 }
