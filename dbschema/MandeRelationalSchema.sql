@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS client
     lastnames_client VARCHAR(255) NOT NULL,
     phone_client VARCHAR(255) NOT NULL,
     creditcard_client VARCHAR(255) NOT NULL,
+    password_client VARCHAR(255) NOT NULL,
     PRIMARY KEY(id_client)
 );
 
