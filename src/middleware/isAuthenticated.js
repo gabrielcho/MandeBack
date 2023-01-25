@@ -3,7 +3,7 @@ const ensureAuthenticated = (req, res, next) => {
       return next();
     }
     console.log('not authenticated')
-    res.redirect('/login');
+    res.send({message: 'Not logged in'});
   };
   
 module.exports = ensureAuthenticated;

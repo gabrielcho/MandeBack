@@ -14,13 +14,14 @@ const createWorker = async (data) => {
 }
 
 
-const createListing = async (listingBody, userId) => {
+const createListing = async (listingBody, workerId) => {
     //checks if there is not an existing listing for that user and service
     const {serviceId, unit, price, title, description} = listingBody;
     try {
-        const listingExists = await db.one('SELECT EXISTS (SELECT 1 FROM service_listing WHERE worker_id_worker=$1 AND service_id_service=$2);',[userId, serviceId]);
+        const listingExists = await db.one(`SELECT EXISTS (SELECT 1 FROM service_listing WHERE worker_id_worker= $1 AND service_id_service= $2);`,[workerId, serviceId]);
+        console.log(listingExists)
         if (!listingExists.exists){
-            return await db.one(
+            const result = await db.one(
                 `INSERT INTO service_listing 
                     (   worker_id_worker, 
                         service_id_service, 
@@ -33,7 +34,9 @@ const createListing = async (listingBody, userId) => {
                     ) 
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
                     RETURNING *;`,
-                [userId, serviceId, 0, true , price, unit,title, description]);
+                [workerId, serviceId, 0, true , price, unit,title, description]);
+            console.log(result)
+            return result 
         }
         else {
             return null

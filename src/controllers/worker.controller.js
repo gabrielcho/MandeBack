@@ -6,7 +6,7 @@ exports.createWorker = async (req, res) => {
 }
 
 exports.createListing = async (req, res) => {
-    const listing = await workerService.createListing(req.body, req.user);
+    const listing = await workerService.createListing(req.body, req.user.id_worker);
     if (listing){
         res.send(listing)
     }
