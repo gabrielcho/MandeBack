@@ -1,19 +1,6 @@
 
 const db = require('../db');
 
-const createWorker = async (data) => {
-    const {email, names, lastNames, address, phone, password, cc} = data
-    const worker = db.one(
-        `INSERT INTO worker 
-        (email_worker, cc_worker, names_worker, lastnames_worker,  phone_worker, address_worker, available_worker, password_worker)
-         VALUES ($1, $2, $3, $4, $5, $6, TRUE, $7) RETURNING *;`,
-        [email, names, lastNames,  phone, password, address, cc])
-        .then(worker => {return worker})
-        .catch(error => {return error.detail});
-    return worker
-}
-
-
 const createListing = async (listingBody, workerId) => {
     //checks if there is not an existing listing for that user and service
     const {serviceId, unit, price, title, description} = listingBody;
@@ -49,6 +36,5 @@ const createListing = async (listingBody, workerId) => {
 
 
 module.exports = {
-    createListing,
-    createWorker
+    createListing
 }

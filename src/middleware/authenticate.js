@@ -19,9 +19,11 @@ const authenticateLogin = (strategy) => (req, res, next) => {
             const {id_worker, id_client} = user;
             const userId = id_worker ? {id_worker: user.id_worker} : id_client ? {id_client: user.id_client} :  null;
             req.user = userId;
+            console.log(userId)
             req.logIn(userId, (err) => {
-                res.status(200).json({message: 'Succesfully logged in'})
+                res.status(200).json({message: 'Succesfully logged inn'})
             })
+        
         }
         else {return res.status(401).json({message: info.message})}
     })(req, res, next)
