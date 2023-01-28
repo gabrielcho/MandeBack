@@ -9,8 +9,14 @@ const createClient = {
         phone: Joi.string().length(10).required(),
         password: Joi.string().required(),
         cc: Joi.string().required(),
-        creditCard: Joi.number().integer().min(16).max(16)
+        creditCard: Joi.number().integer()
     })
 };
 
-module.exports = createClient;
+const startContract = {
+    body: Joi.object().keys({
+        units: Joi.number().integer().min(1).max(100)
+    })
+};
+
+module.exports = {createClient, startContract};

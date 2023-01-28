@@ -1,9 +1,6 @@
 const {workerService} = require('../services');
 
-exports.createWorker = async (req, res) => {
-    const worker = await workerService.createWorker(req.body);
-    res.send(worker);
-}
+
 
 exports.createListing = async (req, res) => {
     const listing = await workerService.createListing(req.body, req.user.id_worker);
