@@ -13,7 +13,6 @@ const authenticateRegister = (strategy) => (req, res, next) => {
 
 const authenticateLogin = (strategy) => (req, res, next) => {
     passport.authenticate(strategy, function (err, user, info) {
-        console.log('dentrodelauthhh', user)
 
         if (err) { return next(err)}
         if (user) {

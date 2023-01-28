@@ -37,7 +37,6 @@ app.use(passport.session());
 
 //Todo: Serialize
 passport.serializeUser(function (user, done) {
-    console.log('serialize', user)
     done(null, user);
 });
 
@@ -47,10 +46,8 @@ passport.deserializeUser(async function (user, done) {
     const {id_worker, id_client} = user;
     const table = id_worker ? 'worker' : id_client ? 'client' :  null;
     const id = id_worker ? 'id_worker' : id_client ? 'id_client' : null;
-    console.log('Deserialize', user)
     try{
         const result = await db.oneOrNone(`SELECT * FROM ${table} WHERE ${id} = $1`, [id_worker || id_client]);
-        console.log(result, 'deserialize yeahh')
         done(null, result)
     }
     catch (error){
@@ -71,7 +68,6 @@ passport.use('local-register-worker', new LocalStrategy({
             `SELECT EXISTS 
                 (SELECT 1 FROM worker WHERE cc_worker = $1 OR email_worker = $2 OR phone_worker = $3);`
             , [cc, email, phone]);
-        console.log('se corre')
 
         if (!workerExists.exists) {
             db.one(
@@ -149,7 +145,6 @@ passport.use('local-login-client',
       function (email, password, done) {
             db.oneOrNone(`SELECT * FROM client WHERE email_client = $1`, [email])
             .then(user => {
-                console.log('resultdbBBBB',user)
                 if (!user) {
                     return done(null, false, { message: 'Incorrect e-mail' })
                 }
@@ -157,7 +152,6 @@ passport.use('local-login-client',
                     return done(null, false, { message: 'Wrong password' })
 
                 }
-                console.log('fine')
                 return done(null, user, {message: 'Successful login'})
             })
             .catch(error => { return done(error)})
