@@ -6,6 +6,12 @@ exports.startContract = async (req, res) => {
     const serviceListingId = req.params.serviceListingId
     const units = req.body.units
 
-    const contract = clientService.startContract(clientId, serviceListingId, units);
-    res.send(200)
+    const contract = await clientService.startContract(clientId, serviceListingId, units);
+    console.log(contract)
+    if(contract){
+        res.status(200).json({message: "Contract started", contract: contract})
+    }
+    else{
+        res.status(401).json({message: "Can't start contract with unexisting serviceListing"})
+    }
 }

@@ -95,3 +95,4 @@ ALTER TABLE contract
 -- Populate services table
 
 INSERT INTO service (name_service, description_service) VALUES ('Limpieza', 'Servicio de limpieza donde se limpian casas, carros, etc'), ('Jardinería', 'Servicio donde se hacen trabajos de jardín');
+a
