@@ -11,6 +11,7 @@ router.post('/createListing', validate(workerValidation.createListing), isAuthen
 router.post('/register', validate(workerValidation.createWorker), authenticateRegister('local-register-worker') );
 router.post('/login', authenticateLogin('local-login-worker'))//workerLogin('local-login-worker')
 router.get('/logout', workerController.logoutWorker)
+router.get('/contracts', isAuthenticated('worker'), workerController.getContracts)
 
 
 module.exports = router;
