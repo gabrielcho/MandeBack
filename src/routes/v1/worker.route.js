@@ -7,10 +7,11 @@ const {authenticateRegister, authenticateLogin} = require('../../middleware/auth
 const workerValidation = require('../../validations/worker.validation');
 const passport = require('passport')
 
-router.post('/createListing', validate(workerValidation.createListing), isAuthenticated, workerController.createListing);
+router.post('/createListing', validate(workerValidation.createListing), isAuthenticated('worker'), workerController.createListing);
 router.post('/register', validate(workerValidation.createWorker), authenticateRegister('local-register-worker') );
 router.post('/login', authenticateLogin('local-login-worker'))//workerLogin('local-login-worker')
 router.get('/logout', workerController.logoutWorker)
+router.get('/contracts', isAuthenticated('worker'), workerController.getContracts)
 
 
 module.exports = router;

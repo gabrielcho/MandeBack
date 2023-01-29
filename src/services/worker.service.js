@@ -30,11 +30,26 @@ const createListing = async (listingBody, workerId) => {
     catch {
         return {message: "Database error." }
     }
+}
 
+const getContracts = async (workerId) => {
+    const contracts = await db.manyOrNone(
+        `SELECT cl.names_client, cl.lastnames_client, sl.id_service_listing, sl.title_service_listing,
+                sl.description_service_listing, sl.unit_service_listing, sl.rating_service_listing,
+                sl.price_service_listing, s.name_service, c.completed_contract, c.units_contract,
+                c.rating_contract, c.id_contract
+        FROM contract c
+        JOIN service_listing sl ON c.service_listing_id_service_listing = sl.id_service_listing
+        JOIN client cl ON c.client_id_client = cl.id_client
+        JOIN service s ON sl.service_id_service = s.id_service
+        WHERE sl.worker_id_worker = $1;
+        `, [workerId])
 
+    return contracts;
 }
 
 
 module.exports = {
-    createListing
+    createListing,
+    getContracts
 }

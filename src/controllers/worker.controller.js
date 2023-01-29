@@ -17,3 +17,10 @@ exports.logoutWorker = async (req, res) => {
     res.redirect('/');
 }
 
+exports.getContracts = async (req, res) => {
+    const workerId = req.user.id_worker
+
+    const contracts = await workerService.getContracts(workerId)
+    res.status(200).json({ contracts: contracts })
+    
+}
