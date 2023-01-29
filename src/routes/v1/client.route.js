@@ -8,8 +8,8 @@ const clientController = require('../../controllers/client.controller')
 
 
 
-router.use('/register', validate(clientValidation.createClient), authenticateRegister('local-register-client'));
-router.use('/login', authenticateLogin('local-login-client'));
-router.use('/serviceListing/:serviceListingId/startContract',  validate(clientValidation.startContract), isAuthenticated('client'),  clientController.startContract )
-        
+router.post('/register', validate(clientValidation.createClient), authenticateRegister('local-register-client'));
+router.post('/login', authenticateLogin('local-login-client'));
+router.post('/serviceListing/:serviceListingId/startContract',  validate(clientValidation.startContract), isAuthenticated('client'),  clientController.startContract )
+router.get('/contracts', isAuthenticated('client'), clientController.getContracts)
 module.exports = router;
