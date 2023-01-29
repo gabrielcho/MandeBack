@@ -2,7 +2,6 @@
 const db = require('../db');
 
 const startContract = async (clientId, serviceListingId, units) => {
-    //1 paso: comprobar si existe servicelisting dado
     const listingExists = await db.one(`SELECT EXISTS (SELECT 1 FROM service_listing WHERE id_service_listing= $1);`,[serviceListingId]);
     if (listingExists.exists) {
         const result = await db.one(

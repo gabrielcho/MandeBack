@@ -10,6 +10,6 @@ const clientController = require('../../controllers/client.controller')
 
 router.use('/register', validate(clientValidation.createClient), authenticateRegister('local-register-client'));
 router.use('/login', authenticateLogin('local-login-client'));
-router.use('/serviceListing/:serviceListingId/startContract', isAuthenticated,  validate(clientValidation.startContract),  clientController.startContract )
+router.use('/serviceListing/:serviceListingId/startContract',  validate(clientValidation.startContract), isAuthenticated('client'),  clientController.startContract )
         
 module.exports = router;
