@@ -1,10 +1,8 @@
-const { Router } = require('express');
-const { getAllservices } = require('../services/serviceListing.service');
 
-const router = Router();
+const { getServiceListings } = require('../services/serviceListing.service');
 
-router.get('/services', getAllservices);
+exports.getServiceListings = async(req, res) => {
+    const serviceListings = await getServiceListings();
 
-
-
-module.exports = router;
+    res.status(200).json(serviceListings)
+}

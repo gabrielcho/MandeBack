@@ -1,16 +1,16 @@
 
 const db = require('../db');
 
-const getAllservices = async (req, res, next) => {
+const getServiceListings = async () => {
     try {
-        const response = await pool.query("SELECT * FROM service_listing WHERE available_service_listing = 1");
-        res.json(response.rows);
+        const response = await db.manyOrNone("SELECT * FROM service_listing WHERE available_service_listing = True");
+        return response;
     }
     catch (err) {
-        next(err);
+        return err;
     }
 }
 
 
 
-module.exports = {getAllservices};
+module.exports = {getServiceListings};
